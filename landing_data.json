@@ -816,8 +816,8 @@
   }
  },
  "the_ten": {
-  "run_id": "202607160342",
-  "n_runs": 4,
+  "run_id": "202607181336",
+  "n_runs": 5,
   "n_configs": 240,
   "target": {
    "cagr": 0.3,
