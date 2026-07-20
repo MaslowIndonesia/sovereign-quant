@@ -1,10 +1,12 @@
 <style>
   :root{
-    --paper:#EFF1F3; --paper-2:#E7EAEE; --ink:#1B1E26; --ink-soft:#454B55;
-    --ink-mute:#6C727C; --hair:#CBD0D6; --hair-soft:#DBDEE3;
-    --accent:#14707E; --accent-deep:#0C5561; --gain:#1C7A4B; --loss:#BC4A34;
-    --band:#14161C; --band-2:#1B1E26; --band-hair:#2B303A; --band-ink:#D7DBE1;
-    --band-mute:#878E9A; --band-accent:#42AEBB; --band-gain:#54C089; --band-loss:#E2795F;
+    /* Kimi design language — warm paper, ink, ONE restrained deep-copper accent.
+       Low saturation throughout; no blue-purple, no saturated fills. */
+    --paper:#F6F1E8; --paper-2:#EDE6D8; --panel:#FCF9F2; --ink:#26221B; --ink-soft:#4D4639;
+    --ink-mute:#7D7462; --hair:#DCD3C0; --hair-soft:#E7DFCE;
+    --accent:#8F5427; --accent-deep:#6F3F1C; --gain:#3E6B50; --loss:#A03A28;
+    --band:#221D16; --band-2:#2A241C; --band-hair:#3D3629; --band-ink:#DED7C6;
+    --band-mute:#9B917D; --band-accent:#C99A6B; --band-gain:#8CA98F; --band-loss:#CE7A5F;
     --serif:ui-serif,"New York",Georgia,"Times New Roman",serif;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;
@@ -17,12 +19,19 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px);}
   h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-0.02em;
     text-wrap:balance;margin:0;}
-  a{color:var(--accent);text-decoration:none}
+  a{color:var(--accent-deep);text-decoration:none}
   a:hover{text-decoration:underline}
   .mono{font-family:var(--mono)}
-  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-feature-settings:"tnum" 1}
   .label{font-family:var(--mono);font-size:11.5px;letter-spacing:0.14em;
     text-transform:uppercase;color:var(--ink-mute);}
+  .chip-mini{font-family:var(--mono);font-size:9.5px;letter-spacing:0.1em;
+    text-transform:uppercase;border:1px solid var(--hair);border-radius:2px;
+    padding:1px 5px;color:var(--ink-mute);vertical-align:2px;margin-left:6px;
+    background:var(--panel)}
+  .chip-mini.paper{border-color:color-mix(in srgb,var(--accent) 45%,var(--hair));
+    color:var(--accent-deep)}
   .gain{color:var(--gain)} .loss{color:var(--loss)} .acc{color:var(--accent)}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
@@ -53,11 +62,19 @@
     border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);}
   .ledger .cell{padding:22px 22px 20px 0;border-right:1px solid var(--hair-soft);}
   .ledger .cell:last-child{border-right:none}
+  .ledger .cell.key{background:color-mix(in srgb,var(--accent) 5%,transparent);
+    box-shadow:inset 0 2px 0 var(--accent);padding-left:16px;margin-left:-1px}
+  .ledger .cell.key .big{color:var(--accent-deep)}
   .ledger .big{font-family:var(--mono);font-size:clamp(1.9rem,1rem+2.4vw,2.7rem);
-    letter-spacing:-0.03em;line-height:1;font-weight:500;margin-top:8px}
+    letter-spacing:-0.03em;line-height:1;font-weight:500;margin-top:8px;
+    font-feature-settings:"tnum" 1}
   .ledger .vs{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink-mute);
     display:flex;flex-direction:column;gap:2px}
   .ledger .vs .sp{color:var(--ink-soft)}
+  .ledger-tag{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ink-mute);display:flex;gap:10px;align-items:center;
+    flex-wrap:wrap}
+  .ledger-tag .chip-mini{margin-left:0}
 
   /* ---- generic section ---- */
   section{padding:92px 0;border-top:1px solid var(--hair);}
@@ -116,8 +133,9 @@
   .vtax .vt .n{font-family:var(--mono);font-size:1.5rem;letter-spacing:-0.02em}
 
   /* ---- plan / charts ---- */
-  .chart-card{border:1px solid var(--hair);border-radius:3px;background:var(--paper);
-    padding:28px;}
+  .chart-card{border:1px solid var(--hair);border-radius:6px;background:var(--panel);
+    padding:28px;transition:border-color .25s ease}
+  .chart-card:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--hair))}
   .chart-head{display:flex;justify-content:space-between;align-items:baseline;
     flex-wrap:wrap;gap:12px;margin-bottom:8px}
   .chart-head h3{font-size:1.25rem}
@@ -157,11 +175,15 @@
   .termtable{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px}
   .termtable th,.termtable td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--band-hair);
     vertical-align:top}
+  .termtable td{color:var(--band-ink)}
   .termtable thead th{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--band-mute);font-weight:500}
-  .termtable td .mname{color:#fff;font-weight:600}
-  .termtable td .applied{color:var(--band-accent)}
+  .termtable td .mname, .termtable td.mname{color:#fff;font-weight:600}
+  .termtable td .applied, .termtable td.applied{color:var(--band-accent)}
   .termtable .g{color:var(--band-gain)} .termtable .r{color:var(--band-loss)}
+  .termtable td.n, .termtable th.n{text-align:right;font-feature-settings:"tnum" 1;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  .termtable tbody tr:hover td{background:color-mix(in srgb,var(--band-accent) 5%,transparent)}
   .tablescroll{overflow-x:auto}
   .chip{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:2px;
     border:1px solid var(--band-hair)}
@@ -172,7 +194,8 @@
     margin-top:6px}
   .gate .g{padding:20px 20px 20px 0;border-right:1px solid var(--band-hair)}
   .gate .g:last-child{border-right:none}
-  .gate .g .n{font-family:var(--mono);font-size:1.7rem;letter-spacing:-0.02em;color:#fff}
+  .gate .g .n{font-family:var(--mono);font-size:1.7rem;letter-spacing:-0.02em;color:#fff;
+    font-feature-settings:"tnum" 1}
   .gate .g .n.ok{color:var(--band-gain)}
   .disclaimer{color:var(--band-mute);font-size:13.5px;max-width:80ch;
     font-family:var(--mono);line-height:1.7}
@@ -181,6 +204,8 @@
     font-family:var(--mono);font-size:12.5px;border-top:1px solid var(--band-hair)}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   footer b{color:var(--band-ink)}
+  .stale{color:var(--band-loss);border:1px solid color-mix(in srgb,var(--band-loss) 45%,transparent);
+    border-radius:2px;padding:1px 6px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase}
 
   /* reveal (enhances an already-visible default) */
   .rise{opacity:1;transform:none}
@@ -194,6 +219,8 @@
     .ledger,.scorecard{grid-template-columns:1fr 1fr}
     .cols,.theory,.grid-2,.gate,.rollstrip{grid-template-columns:1fr}
     .ledger .cell,.sc{border-right:none;border-bottom:1px solid var(--hair-soft)}
+    .ledger .cell.key{padding-left:0;margin-left:0;box-shadow:none;
+      border-left:2px solid var(--accent);padding-left:14px}
     .roll{border-right:none;border-bottom:1px solid var(--hair-soft)}
     .gate .g{border-right:none;border-bottom:1px solid var(--band-hair)}
   }
@@ -231,16 +258,21 @@
         <div class="big">-19<span style="font-size:.55em">%</span></div>
         <div class="vs"><span class="sp">SPY&nbsp;&nbsp;-55%</span><span class="acc">a third as deep</span></div>
       </div>
-      <div class="cell">
+      <div class="cell key">
         <div class="label">Calmar (return &divide; pain)</div>
         <div class="big">0.62</div>
-        <div class="vs"><span class="sp">SPY&nbsp;&nbsp;0.20</span><span class="acc">3.2&times; better</span></div>
+        <div class="vs"><span class="sp">SPY&nbsp;&nbsp;0.20</span><span class="acc">3.2&times; better &middot; the headline ratio</span></div>
       </div>
       <div class="cell">
         <div class="label">2022 rate shock</div>
         <div class="big">-11<span style="font-size:.55em">%</span></div>
         <div class="vs"><span class="sp">SPY&nbsp;&nbsp;-18%</span><span class="acc">cushioned</span></div>
       </div>
+    </div>
+    <div class="ledger-tag rise" aria-label="Data provenance">
+      <span class="chip-mini">simulated backtest</span>
+      <span class="chip-mini">net of 10bps costs</span>
+      <span class="chip-mini paper">paper only &mdash; no orders, no client money</span>
     </div>
   </section>
 
@@ -444,7 +476,7 @@
         <div class="vs"><span class="sp">Calmar 3.0 required</span>
           <span id="tt-met" class="loss">not met &mdash; reported, never faked</span></div>
       </div>
-      <div class="cell">
+      <div class="cell key">
         <div class="label">Best achieved (gate-clean)</div>
         <div class="big num" id="tt-champ">17.7% / -34%</div>
         <div class="vs"><span class="sp" id="tt-champ-label">concentrated momentum, top-1</span>
@@ -457,11 +489,16 @@
           <span>+300-path bootstrap each</span></div>
       </div>
       <div class="cell">
-        <div class="label">Forward test &middot; live OOS</div>
+        <div class="label">Forward test &middot; live OOS<span class="chip-mini paper">paper</span></div>
         <div class="big num" id="tt-fwd">7 / 126<span style="font-size:.55em">d</span></div>
         <div class="vs"><span class="sp" id="tt-fwd-note">accumulating since 2026-07-07</span>
           <span>nothing graduates before 126 forward days</span></div>
       </div>
+    </div>
+    <div class="ledger-tag rise" aria-label="Data provenance">
+      <span class="chip-mini">backtest cells &middot; simulated</span>
+      <span class="chip-mini paper">forward cell &middot; live out-of-sample, paper only</span>
+      <span id="tt-run" class="mono" style="font-size:11px;letter-spacing:0.06em"></span>
     </div>
     <p class="chart-note rise" style="margin-top:16px" id="tt-frontier">
       The drawdown floor is structural: across every configuration swept, none stayed inside
@@ -496,8 +533,8 @@
       </div>
       <div class="tablescroll rise">
         <table class="termtable" aria-label="Certified strategy families versus SPY">
-          <thead><tr><th>Family</th><th>CAGR</th><th>Max DD</th><th>Sharpe</th>
-            <th>Calmar</th><th>2022</th><th>Verdict</th></tr></thead>
+          <thead><tr><th>Family</th><th class="n">CAGR</th><th class="n">Max DD</th><th class="n">Sharpe</th>
+            <th class="n">Calmar</th><th class="n">2022</th><th>Verdict</th></tr></thead>
           <tbody id="familyRows"></tbody>
         </table>
       </div>
@@ -547,7 +584,7 @@
 <footer>
   <div class="wrap">
     <span>SOVEREIGN QUANT &middot; a personal institutional quant fund</span>
-    <span>Data as of <b>2 Jul 2026</b> &middot; 21-year backtest &middot; net of 10bps costs</span>
+    <span>Data as of <b id="asof">2 Jul 2026</b> <span id="asof-stale"></span> &middot; 21-year backtest &middot; net of 10bps costs</span>
     <span>Survival before return.</span>
   </div>
 </footer>
@@ -753,9 +790,9 @@
   // family rows
   $("familyRows").innerHTML=DATA.family.map(f=>{
     const v=f.champ?'<span class="chip pass">CHAMPION</span>':(f.ok?'<span class="chip pass">durable</span>':'<span class="chip fail">2022-fragile</span>');
-    return `<tr><td class="mname">${f.name}</td><td class="g">${pct(f.cagr,1)}</td>
-      <td class="r">${pct(f.dd,0)}</td><td>${f.sharpe.toFixed(2)}</td><td>${f.calmar.toFixed(2)}</td>
-      <td class="${f.r2022>-0.16?'g':'r'}">${pct(f.r2022,0)}</td><td>${v}</td></tr>`;}).join("");
+    return `<tr><td class="mname">${f.name}</td><td class="g n">${pct(f.cagr,1)}</td>
+      <td class="r n">${pct(f.dd,0)}</td><td class="n">${f.sharpe.toFixed(2)}</td><td class="n">${f.calmar.toFixed(2)}</td>
+      <td class="${f.r2022>-0.16?'g':'r'} n">${pct(f.r2022,0)}</td><td>${v}</td></tr>`;}).join("");
 
   // backlog rows
   $("backlogRows").innerHTML=DATA.backlog.map(b=>
@@ -776,15 +813,29 @@
   // page by the loop on every run), so the site updates without an HTML change.
   // Fails silently to the embedded snapshot (e.g. inside the Artifact CSP).
   fetch("landing_data.json").then(r=>r.ok?r.json():null).then(d=>{
-    if(!d||!d.the_ten||!d.the_ten.champion) return;
-    const t=d.the_ten, f=d.forward_test||{}, pc=(x,dd=0)=>(x*100).toFixed(dd)+"%";
+    if(!d) return;
     const set=(id,html)=>{const n=document.getElementById(id); if(n) n.innerHTML=html;};
+    // provenance: as-of date + honest staleness badge (never hides the fallback date)
+    try{
+      if(d.as_of){
+        const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const p=d.as_of.split("-").map(Number);
+        if(p.length===3&&p.every(Number.isFinite)){
+          set("asof", `${p[2]} ${MON[p[1]-1]} ${p[0]}`);
+          const age=(Date.now()-Date.UTC(p[0],p[1]-1,p[2]))/864e5;
+          if(age>4) set("asof-stale", `<span class="stale">stale &middot; ${Math.floor(age)}d old</span>`);
+        }
+      }
+    }catch(e){}
+    if(!d.the_ten||!d.the_ten.champion) return;
+    const t=d.the_ten, f=d.forward_test||{}, pc=(x,dd=0)=>(x*100).toFixed(dd)+"%";
     set("tt-champ", `${pc(t.champion.cagr,1)} / ${pc(t.champion.max_dd,0)}`);
     set("tt-champ-label", t.champion.label);
     set("tt-tests", `${t.n_runs} &middot; ${(t.n_runs*(t.n_configs||240)).toLocaleString()}`);
     const fh=(f.high_cagr&&f.high_cagr.days)||0, fH=(f.hardened&&f.hardened.days)||0;
     set("tt-fwd", `${Math.max(fh,fH)} / ${f.goal_days||126}<span style="font-size:.55em">d</span>`);
     if(f.since) set("tt-fwd-note", `accumulating since ${f.since}`);
+    if(t.run_id) set("tt-run", `loop run ${t.run_id}`);
     set("tt-met", t.target_met ? '<span class="gain">MET (verify: extraordinary)</span>'
                                : 'not met &mdash; reported, never faked');
   }).catch(()=>{});
