@@ -250,6 +250,7 @@
 </header>
 
 <main class="wrap">
+  <div id="upg" hidden style="margin:0 0 16px;padding:8px 12px;border-radius:10px;background:#ede6d8;color:#6f665a;font:12px/18px ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums"></div>
 
   <!-- VERDICT — beating? fresh? chase on track? in three seconds (replaces the hero) -->
   <section class="verdict" style="border-top:none">
@@ -856,4 +857,14 @@
     set("tt-met", t.target_met ? '<span class="gain">MET (verify: extraordinary)</span>'
                                : 'not met &mdash; reported, never faked');
   }).catch(()=>{});
+</script>
+<script>
+// upgrades strip (Hans 2026-07-23): last applied upgrade per estate, from the
+// engine-published upgrades.json — additive script; the hydration script above is untouched.
+(function(){var e=document.getElementById('upg');if(!e)return;
+fetch('upgrades.json').then(function(r){return r.json()}).then(function(d){
+function s(x){return x&&x.latest?x.actor+': '+x.latest.summary:null}
+var c=s(d.claude),k=s(d.kimi);if(!c&&!k)return;
+e.textContent='last upgrades · '+(c||'Fable 5: —')+'  |  '+(k||'Kimi K3: —');e.hidden=false;
+}).catch(function(){e.hidden=true});})();
 </script>
