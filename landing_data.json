@@ -79,7 +79,7 @@
    "arith": 0.1209,
    "geo": 0.111,
    "vol_tax": 0.0099,
-   "ret_2022": -0.1096,
+   "ret_2022": -0.1097,
    "recover_from_dd": 0.2347
   },
   "spy": {
@@ -121,7 +121,7 @@
  "dca": {
   "contrib_monthly": 1000.0,
   "hardened": {
-   "terminal": 1103944.0,
+   "terminal": 1103946.0,
    "invested": 259000.0,
    "multiple": 4.26,
    "path_maxdd": -0.1441,
@@ -147,7 +147,7 @@
     {
      "year": "2008",
      "date": "2008-12",
-     "bal": 58271.0,
+     "bal": 58272.0,
      "invested": 48000.0
     },
     {
@@ -183,79 +183,79 @@
     {
      "year": "2014",
      "date": "2014-12",
-     "bal": 267246.0,
+     "bal": 267255.0,
      "invested": 120000.0
     },
     {
      "year": "2015",
      "date": "2015-12",
-     "bal": 254923.0,
+     "bal": 254930.0,
      "invested": 132000.0
     },
     {
      "year": "2016",
      "date": "2016-12",
-     "bal": 290800.0,
+     "bal": 290808.0,
      "invested": 144000.0
     },
     {
      "year": "2017",
      "date": "2017-12",
-     "bal": 445998.0,
+     "bal": 446009.0,
      "invested": 156000.0
     },
     {
      "year": "2018",
      "date": "2018-12",
-     "bal": 463154.0,
+     "bal": 463165.0,
      "invested": 168000.0
     },
     {
      "year": "2019",
      "date": "2019-12",
-     "bal": 601753.0,
+     "bal": 601767.0,
      "invested": 180000.0
     },
     {
      "year": "2020",
      "date": "2020-12",
-     "bal": 727416.0,
+     "bal": 727435.0,
      "invested": 192000.0
     },
     {
      "year": "2021",
      "date": "2021-12",
-     "bal": 814394.0,
+     "bal": 814396.0,
      "invested": 204000.0
     },
     {
      "year": "2022",
      "date": "2022-12",
-     "bal": 736676.0,
+     "bal": 736677.0,
      "invested": 216000.0
     },
     {
      "year": "2023",
      "date": "2023-12",
-     "bal": 758847.0,
+     "bal": 758848.0,
      "invested": 228000.0
     },
     {
      "year": "2024",
      "date": "2024-12",
-     "bal": 867812.0,
+     "bal": 867813.0,
      "invested": 240000.0
     },
     {
      "year": "2025",
      "date": "2025-12",
-     "bal": 1068067.0,
+     "bal": 1068069.0,
      "invested": 252000.0
     },
     {
      "year": "2026",
      "date": "2026-07",
-     "bal": 1103944.0,
+     "bal": 1103946.0,
      "invested": 259000.0
     }
    ]
@@ -341,7 +341,7 @@
     {
      "year": "2017",
      "date": "2017-12",
-     "bal": 337831.0,
+     "bal": 337830.0,
      "invested": 156000.0
     },
     {
@@ -567,7 +567,7 @@
   "hardened": {
    "n_years": 21,
    "positive_year_rate": 0.9048,
-   "worst_year": -0.1096,
+   "worst_year": -0.1097,
    "best_year": 0.4836,
    "positive_3y_rate": 0.9751,
    "worst_3y_cagr": -0.0249,
@@ -577,7 +577,7 @@
    "consistency_score": 82.3,
    "annual": {
     "2005": 0.0,
-    "2006": 0.2105,
+    "2006": 0.2106,
     "2007": 0.078,
     "2008": 0.0576,
     "2009": 0.0718,
@@ -586,14 +586,14 @@
     "2012": 0.1004,
     "2013": 0.1032,
     "2014": 0.2675,
-    "2015": -0.0881,
+    "2015": -0.0882,
     "2016": 0.0957,
     "2017": 0.4836,
     "2018": 0.0117,
     "2019": 0.2698,
     "2020": 0.1868,
     "2021": 0.102,
-    "2022": -0.1096,
+    "2022": -0.1097,
     "2023": 0.0134,
     "2024": 0.1274,
     "2025": 0.215,
@@ -781,7 +781,7 @@
    "sharpe": 0.859,
    "calmar": 0.617,
    "dominates_spy": true,
-   "ret_2022": -0.1096,
+   "ret_2022": -0.1097,
    "protected_2022": true
   },
   "risk_parity": {
@@ -816,8 +816,8 @@
   }
  },
  "the_ten": {
-  "run_id": "202607240454",
-  "n_runs": 19,
+  "run_id": "202607241001",
+  "n_runs": 20,
   "n_configs": 240,
   "target": {
    "cagr": 0.3,
@@ -923,17 +923,17 @@
    "k5_note": "top-5 (k5) lane is inside the 640-config grid but only the overall champion is persisted \u2014 no per-k breakdown and no per-rebalance holdings trail yet (rotation_holdings.jsonl proposal logged in src/backtest/rotation_sweep.py)"
   },
   "counts": {
-   "high_cagr_runs": 19,
-   "high_cagr_configs": 4560,
+   "high_cagr_runs": 20,
+   "high_cagr_configs": 4800,
    "rotation_runs": 1,
    "rotation_configs": 640,
    "wide_sweep_runs": 3,
    "wide_sweep_configs": 15000,
-   "beat_benchmark_runs": 27,
-   "total_configs": 20200,
+   "beat_benchmark_runs": 28,
+   "total_configs": 20440,
    "forward_hardened_days": 13,
    "forward_high_cagr_days": 9
   },
-  "generated_at": "2026-07-24T04:54:38Z"
+  "generated_at": "2026-07-24T10:01:09Z"
  }
 }
